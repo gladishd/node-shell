@@ -21,14 +21,10 @@ process.stdin.on('data', (data) => {
    */
   cmd = cmd.split(' ');
 
-  if (cmd[0] === 'cat') { 
-    for (let i = 1; i < cmd.length; i++) {
-      cat(cmd[i])
-    }
- }
+  if (cmd[0] === 'cat') { cat(cmd) }
   else if (cmd[0] === 'pwd') { pwd() }
   else if (cmd[0] === 'ls') { ls() }
-  else if (cmd[0] === 'curl') {curl(cmd[1])}
+  else if (cmd[0] === 'curl') { curl(cmd[1]) }
   else {
     process.stdout.write('You typed: ' + cmd.join(' '));
     process.stdout.write('\nprompt > ');
