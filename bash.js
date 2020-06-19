@@ -20,7 +20,6 @@ process.stdin.on('data', (data) => {
    */
   cmd = cmd.split(' ');
 
-
   if (cmd[0] === 'cat') { cat(cmd[1]) }
   else if (cmd[0] === 'pwd') { pwd() }
   else if (cmd[0] === 'ls') { ls() }
