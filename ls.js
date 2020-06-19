@@ -1,12 +1,12 @@
 // `files` will be an array of filenames, like ['bash.js', 'pwd.js']
 const fs = require('fs');
-const readDir = () => {
+// fn doesn't exist until bash.js calls readDir locally
+const readDir = (fn) => {
   fs.readdir('./', 'utf8', (err, files) => {
     if (err) {
-      throw err
+      fn('Something went wrong!');
     } else {
-      process.stdout.write(files.join(' '))
-      process.stdout.write("\nprompt > ");
+      fn(files.join(' '));
     }
   })
 }

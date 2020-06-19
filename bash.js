@@ -8,6 +8,12 @@ const cat = require('./cat');
 const fs = require('fs');
 const curl = require('./curl')
 
+// we pass in done, in this file
+const done = (output) => {
+  process.stdout.write(output);
+  process.stdout.write('\nprompt > '); // return to prompt
+}
+
 // The stdin 'data' event fires after a user types in a line
 process.stdin.on('data', (data) => {
   let cmd = data.toString().trim(); // remove the newLine
@@ -21,30 +27,11 @@ process.stdin.on('data', (data) => {
    */
   cmd = cmd.split(' ');
 
-  if (cmd[0] === 'cat') { cat(cmd) }
-  else if (cmd[0] === 'pwd') { pwd() }
-  else if (cmd[0] === 'ls') { ls() }
-  else if (cmd[0] === 'curl') { curl(cmd[1]) }
+  if (cmd[0] === 'cat') { cat(cmd, done) }
+  else if (cmd[0] === 'pwd') { pwd(done) }
+  else if (cmd[0] === 'ls') { ls(done) }
+  else if (cmd[0] === 'curl') { curl(cmd[1], done) }
   else {
-    process.stdout.write('You typed: ' + cmd.join(' '));
-    process.stdout.write('\nprompt > ');
+    done('You typed: ' + cmd.join(' '));
   }
 });
-
-// const done = (output) => {
-//   process.stdout.write(output);
-//   process.stdout.write('\nprompt > ');
-// }
-
-// module.exports = done;
-
-
-// module.exports = (done) => {
-//   fs.readdir('./', 'utf8', (err, files) => {
-//     if (err) {
-//       done ('Something went wrong!')
-//     } else {
-//       done (files.join('\n'))
-//     }
-//   })
-// }

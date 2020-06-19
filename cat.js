@@ -1,20 +1,17 @@
 const fs = require('fs');
-const printFile = (fileNames) => {
+const printFile = (fileNames, fn) => {
   if (fileNames.length === 1) { // if there aren't any args
-    process.stdout.write("Usage: cat filename");
-    process.stdout.write("\nprompt > ");
+    fn("Usage: cat filename");
     return;
   }
   fileNames.splice(1).forEach(name => {
     return fs.readFile(name, 'utf8', (err, fileContent) => {
       if (err) {
         if (err.code === "ENOENT") {
-          process.stdout.write('The file does not exist in the current working directory');
-          process.stdout.write("\nprompt > ");
+          fn('The file does not exist in the current working directory');
         } else { throw err }
       } else {
-        process.stdout.write(fileContent)
-        process.stdout.write("\nprompt > ");
+        fn(fileContent);
       }
     })
   })
