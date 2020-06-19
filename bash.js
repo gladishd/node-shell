@@ -6,6 +6,7 @@ const pwd = require('./pwd');
 const ls = require('./ls');
 const cat = require('./cat');
 const fs = require('fs');
+const curl = require('./curl')
 
 // The stdin 'data' event fires after a user types in a line
 process.stdin.on('data', (data) => {
@@ -20,13 +21,34 @@ process.stdin.on('data', (data) => {
    */
   cmd = cmd.split(' ');
 
-  if (cmd[0] === 'cat') { cat(cmd[1]) }
+  if (cmd[0] === 'cat') { 
+    for (let i = 1; i < cmd.length; i++) {
+      cat(cmd[i])
+    }
+ }
   else if (cmd[0] === 'pwd') { pwd() }
   else if (cmd[0] === 'ls') { ls() }
+  else if (cmd[0] === 'curl') {curl(cmd[1])}
   else {
     process.stdout.write('You typed: ' + cmd.join(' '));
     process.stdout.write('\nprompt > ');
   }
 });
 
+// const done = (output) => {
+//   process.stdout.write(output);
+//   process.stdout.write('\nprompt > ');
+// }
 
+// module.exports = done;
+
+
+// module.exports = (done) => {
+//   fs.readdir('./', 'utf8', (err, files) => {
+//     if (err) {
+//       done ('Something went wrong!')
+//     } else {
+//       done (files.join('\n'))
+//     }
+//   })
+// }
