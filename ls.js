@@ -11,6 +11,4 @@ const readDir = () => {
   })
 }
 
-module.exports = function () {
-  readDir();
-}
+module.exports = readDir;
